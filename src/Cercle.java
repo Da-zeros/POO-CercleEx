@@ -13,37 +13,28 @@ public class Cercle {
 	}
 	
 	public double distanceBetwenCenters(Cercle cercle) {
-		//distanciaCentres(altreCercle): Retorna la distància entre el centre del cercle actual i el rebut com a paràmetre.
+		
 		 double x1, x2, y1, y2; 
+		 Point point;
+		 
+		 point = cercle.getCenter();
 		 
 		 x1 = this.center.getxPosition();
 		 y1 = this.center.getyPosition();
 		 
-		 x2 = 
+		 x2 = point.getxPosition();
+		 y2 = point.getyPosition();
 		
-				
 		return Point2D.distance(x1, y1, x2, y2);
 	}
 	
-	public Point getCenter() {
-		return center;
-	}
-
-	public void setCenter(Point center) {
-		this.center = center;
-	}
-
-	public double getRadius() {
-		return radius;
-	}
-
-	public void setRadius(double radius) {
-		this.radius = radius;
-	}
-	
-	public boolean equals() {
+	public boolean equals(Cercle cercle) {
 		//⦁ equals(altreCercle): Retorna true si dos cercles són iguals (si tenen el mateix centre i el mateix radi).
-		boolean equal = true;
+		boolean equal;
+		
+		equal = ( cercle.getCenter() == this.center) ? true : false;
+		System.out.println("Centro propio" + this.center);
+		System.out.println("Centro 2"+ cercle);
 		return equal;
 	}
 	
@@ -77,12 +68,13 @@ public class Cercle {
 	}
 	
 	public String showAllInfo(Cercle cercle) {
+		
 		double distance;
 		boolean equals, concentrics, radian, tangent, secant, notTouch;
 		String sEquals, sConcentrics, sRadian, sTangent, sSecant, sNotTouch, string;
 		
 		distance = this.distanceBetwenCenters(cercle);
-		sEquals = (this.equals()) ? "Are equals" : "not equals";
+		sEquals = (this.equals(cercle)) ? "Are equals" : "not equals";
 		sConcentrics = (this.contentrics()) ? "Are concentrics" : "not concentrics";
 		sRadian = (this.sameRadian()) ? "Has the same radious" : "Doesn't has the same radious";
 		sTangent = (this.aretangent()) ? "Are tangen" : "Not are tangent";
@@ -91,5 +83,21 @@ public class Cercle {
 		
 		string = "Distance between cercles" + distance + "\n" + sEquals + "\n" + sConcentrics + "\n" + sRadian + "\n" + sTangent + "\n" + sSecant + "\n" + sNotTouch;
 		return string;
+	}
+	
+	public Point getCenter() {
+		return center;
+	}
+
+	public void setCenter(Point center) {
+		this.center = center;
+	}
+
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
 	}
 }
