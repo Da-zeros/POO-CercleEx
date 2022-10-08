@@ -30,12 +30,26 @@ public class Cercle {
 	
 	public boolean equals(Cercle cercle) {
 		//⦁ equals(altreCercle): Retorna true si dos cercles són iguals (si tenen el mateix centre i el mateix radi).
-		boolean equal;
+		boolean sameRadious, sameCercle, equals;
+		double  x1, x2, y1, y2, ownRadious, otherRadious;
+		Point point;
+		 
+		point = cercle.getCenter();
+		ownRadious = this.getRadius();
+		otherRadious = cercle.getRadius();
+		 
+		 x1 = this.center.getxPosition();
+		 y1 = this.center.getyPosition();
+		 
+		 x2 = point.getxPosition();
+		 y2 = point.getyPosition();
+		 
+		 sameCercle = ( x1 == x2 && y1 == y2 )? true : false;
+		 sameRadious = ( ownRadious == otherRadious )? true : false;
+		 
+		 equals = ( sameCercle && sameRadious ) ? true : false;
 		
-		equal = ( cercle.getCenter() == this.center) ? true : false;
-		System.out.println("Centro propio" + this.center);
-		System.out.println("Centro 2"+ cercle);
-		return equal;
+		return equals;
 	}
 	
 	public boolean contentrics() {
