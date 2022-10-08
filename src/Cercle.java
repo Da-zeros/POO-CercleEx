@@ -31,6 +31,19 @@ public class Cercle {
 	public boolean equals(Cercle cercle) {
 		//⦁ equals(altreCercle): Retorna true si dos cercles són iguals (si tenen el mateix centre i el mateix radi).
 		boolean sameRadious, sameCercle, equals;
+ 
+		 sameCercle = ( this.contentrics(cercle) )? true : false;
+		 sameRadious = (this.sameRadious(cercle) )? true : false;
+		 
+		 equals = ( sameCercle && sameRadious ) ? true : false;
+		
+		return equals;
+	}
+	
+	
+	public boolean contentrics(Cercle cercle) {
+		//⦁ sonConcentrics(altreCercle): Retorna true si dos cercles són concèntrics (tenen igual centre)
+		boolean sameCercle;
 		double  x1, x2, y1, y2, ownRadious, otherRadious;
 		Point point;
 		 
@@ -45,40 +58,105 @@ public class Cercle {
 		 y2 = point.getyPosition();
 		 
 		 sameCercle = ( x1 == x2 && y1 == y2 )? true : false;
-		 sameRadious = ( ownRadious == otherRadious )? true : false;
-		 
-		 equals = ( sameCercle && sameRadious ) ? true : false;
 		
-		return equals;
+		return  sameCercle;
 	}
 	
-	public boolean contentrics() {
-		//⦁ sonConcentrics(altreCercle): Retorna true si dos cercles són concèntrics (tenen igual centre).
-		boolean equal = true;
-		return equal;
-	}
-	
-	public boolean sameRadian() {
+	public boolean sameRadious( Cercle cercle) {
 		//⦁ tenenIgualRadi(altreCercle): Retorna true si dos cercles tenen el mateix radi.
-		boolean equal = true;
-		return equal;
+		double  ownRadious, otherRadious;
+		boolean sameRadious;
+		
+		ownRadious = this.getRadius();
+		otherRadious = cercle.getRadius();
+		
+		sameRadious = ( ownRadious == otherRadious )? true : false;
+		
+		return sameRadious;
 	}
 	
-	public boolean aretangent() {
-		//⦁ sonTangents(altreCercle): Retorna true si dos cercles són tangents.
-		boolean equal = true;
-		return equal;
+	public boolean aretangent(Cercle cercle) {
+		double distance, x1, x2, y1, y2, r1, r2;
+		boolean extTangent, intTangent, tangent;
+		
+		Point point;
+		
+		point = cercle.getCenter();
+		
+		 x1 = this.center.getxPosition();
+		 y1 = this.center.getyPosition();
+		 
+		 x2 = point.getxPosition();
+		 y2 = point.getyPosition();
+		 
+			
+		r1 = this.getRadius();
+		r2 = cercle.getRadius();
+		
+		distance = Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2));
+		
+		extTangent = (distance == (r1+r2)) ? true : false;
+		intTangent = (distance == Math.abs(r1-r2)) ? true : false;
+	   
+		tangent = ( extTangent || intTangent ) ? true : false;
+		
+		return tangent;
 	}
 	
-	public boolean areSecant() {
+	public boolean areSecant(Cercle cercle) {
+		
+		double distance, x1, x2, y1, y2, r1, r2;
+		boolean secant;
+		
+		Point point;
+		
+		point = cercle.getCenter();
+		
+		 x1 = this.center.getxPosition();
+		 y1 = this.center.getyPosition();
+		 
+		 x2 = point.getxPosition();
+		 y2 = point.getyPosition();
+		 
+			
+		r1 = this.getRadius();
+		r2 = cercle.getRadius();
+		
+		distance = Math.sqrt(Math.pow((x2-x1),2)+Math.pow((y2-y1),2));
+		
 		//⦁ sonSecants(altreCercle): Retorna true si dos cercles són secants.
+		secant = (distance < (r1+r2) && distance > Math.abs(r1-r2));
 		boolean equal = true;
 		return equal;
 	}
 	
-	public boolean noTouched() {
-		boolean equal = true;
-		return equal;
+	public boolean noTouched(Cercle cercle) {
+		
+		boolean intersect, touched ,noTouched;
+		double  x1, x2, y1, y2, r1, r2;
+		Point point;
+		 
+		point = cercle.getCenter();
+		
+		r1 = this.getRadius();
+		r2 = cercle.getRadius();
+		 
+		 x1 = this.center.getxPosition();
+		 y1 = this.center.getyPosition();
+		 
+		 x2 = point.getxPosition();
+		 y2 = point.getyPosition();
+		
+		double d = Math.sqrt((x1 - x2) * (x1 - x2)
+                + (y1 - y2) * (y1 - y2));
+		
+		intersect = (d < r1 + r2)? true : false ; 
+        touched =  (d == r1 + r2)? true : false ; 
+		
+        noTouched = ( !intersect && !touched ) ? true : false ;
+        
+        return noTouched;
+        
 	}
 	
 	public String showAllInfo(Cercle cercle) {
@@ -89,11 +167,11 @@ public class Cercle {
 		
 		distance = this.distanceBetwenCenters(cercle);
 		sEquals = (this.equals(cercle)) ? "Are equals" : "not equals";
-		sConcentrics = (this.contentrics()) ? "Are concentrics" : "not concentrics";
-		sRadian = (this.sameRadian()) ? "Has the same radious" : "Doesn't has the same radious";
-		sTangent = (this.aretangent()) ? "Are tangen" : "Not are tangent";
-		sSecant = (this.areSecant()) ? "Are Secant" : "Not are secant";
-		sNotTouch = (this.noTouched()) ? "circles do not touch " : "circles touch each other  ";
+		sConcentrics = (this.contentrics(cercle)) ? "Are concentrics" : "not concentrics";
+		sRadian = (this.sameRadious(cercle)) ? "Has the same radious" : "Doesn't has the same radious";
+		sTangent = (this.aretangent(cercle)) ? "Are tangen" : "Not are tangent";
+		sSecant = (this.areSecant(cercle)) ? "Are Secant" : "Not are secant";
+		sNotTouch = (this.noTouched(cercle)) ? "circles do not touch " : "circles touch each other";
 		
 		string = "Distance between cercles" + distance + "\n" + sEquals + "\n" + sConcentrics + "\n" + sRadian + "\n" + sTangent + "\n" + sSecant + "\n" + sNotTouch;
 		return string;
